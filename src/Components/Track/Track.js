@@ -1,4 +1,5 @@
 import React from 'react';
+import 'Track.css';
 
 class Track extends React.Component{
     render(){
@@ -14,6 +15,10 @@ class Track extends React.Component{
     }
 
     renderAction(){
-        
+        if (isRemoval === true){
+            return <button className='Track-action'>-</button>
+        } else {
+            return <button className='Track-action'>+</button>
+        }
     }
 }
