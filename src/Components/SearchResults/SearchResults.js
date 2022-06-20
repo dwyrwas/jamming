@@ -8,3 +8,5 @@ class SearchResults extends React.Component{
             </div>
     }
 }
+
+export { SearchResults };
