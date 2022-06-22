@@ -34,12 +34,12 @@ const Spotify = {
         if(accessTokenMatch && expiresInMatch) {
             userAccessToken = accessTokenMatch[1];
             const expiresIn = Number(expiresInMatch[1]);
-            window.setTimeout(() => accessToken='', expiresIn * 1000);
+            window.setTimeout(() => userAccessToken='', expiresIn * 1000);
             window.history.pushState('Access Token', null, '/');
 
         } else {
             const accessURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURL}`;
-            wondiw.location = accessURL;
+            window.location = accessURL;
         }
     }
 }
