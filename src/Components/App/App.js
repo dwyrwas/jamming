@@ -4,11 +4,16 @@ import Playlist from '../Playlist/Playlist';
 import Track from '../Track/Track';
 import './App.css';
 import React from 'react';
+import { toHaveStyle } from "@testing-library/jest-dom/dist/matchers";
 
 class App extends React.Component{
   constructor(props){
     super(props);
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
     this.state = {
       searchResults: [{name: 'name1', artist: "artist1", album:'album1', id: 1},
       {name: 'name2', artist: "artist2", album:'album2', id: 2},
@@ -22,8 +27,22 @@ class App extends React.Component{
 
   }
 
+  search(searchTerm){
+    console.log(searchTerm);
+  }
+
+  savePlaylist(){
+    const trackURIs = this.state.playlistTracks.map(track => track.uri);
+  }
+
+  updatePlaylistName(name){
+    this.setState({playlistName:name});
+  }
+
   removeTrack(track){
-        
+    let tracks = this.state.playlistTracks;
+    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+    this.setState({ playlistTracks: tracks });
   }
 
   addTrack(track){
@@ -42,10 +61,11 @@ class App extends React.Component{
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar />
+          <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
-            <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
+            <Playlist playlistName={this.state.playlistName} onSave={this.savePlaylist}
+              playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName}/>
           </div>
         </div>
       </div>
