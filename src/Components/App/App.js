@@ -1,10 +1,10 @@
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from '../Playlist/Playlist';
-import Track from '../Track/Track';
 import './App.css';
 import React from 'react';
-import { toHaveStyle } from "@testing-library/jest-dom/dist/matchers";
+import Spotify from "../../util/Spotify";
+
 
 class App extends React.Component{
   constructor(props){
@@ -28,7 +28,7 @@ class App extends React.Component{
   }
 
   search(searchTerm){
-    console.log(searchTerm);
+    Spotify.search(searchTerm).then(searchResults => {this.setState({searchResults: searchResults})});
   }
 
   savePlaylist(){
